@@ -91,3 +91,20 @@ price(flatfish); // 입력받은 광어!!
 
 // 만약 50마리의 광어를 출력해야 한다면? (배열 or 반복문)
 // 배열 : 동일한 특성을 가지며 일정한 규칙에 따라 여러 요소가 나열되어 있는 데이터들의 집합 
+
+let flatfishs = [
+    100,
+    150,
+    200, 
+    60
+];
+
+flatfishs(); // 광어들의 무게
+
+// 호출하고 싶을때?
+price(flatfishs[0]);
+
+// 반복문과 배열을 같이 사용하면 효율적으로 사용 할 수 있다.
+for(let i = 0; i < flatfishs.length; i++) {
+    price(flatfishs[i]);
+}
