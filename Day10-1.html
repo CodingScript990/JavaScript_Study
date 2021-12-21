@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div><span id="order">1</span>번째 참가자</div>
+    <div>제시어 : <span id="word"></span></div>
+    <input type="text">
+    <button>입력</button>
+    <script>
+        const number = parseInt(prompt('몇 명이 참가 하나요?'), 10);
+        //const yesOrNo = confirm('맞나요?');
+        const _button = document.querySelector('button');
+        const _input = document.querySelector('input');
+        const _word = document.querySelector('#word');
+
+        let word; // 제시어
+        let newWord; // 새로 입력한 단어
+
+        const onClickButton = () => {
+            if(!word) { // 제시어가 비어있나?
+                // 비었다.
+                word = newWord;
+                _word.textContent = word;
+                _input.value = '';
+            } else{
+                // 비어 있지 않다.
+            }
+        };
+
+        const onInput = (e) => {
+            newWord = e.target.value;
+        };
+
+        _button.addEventListener('click', onClickButton);
+        _input.addEventListener('input', onInput);
+
+        
+
+        //buttonBtn.addEventListener('click', onClickButtonBtn);
+
+        /*
+            // onclick 사용법(ES6) 
+
+            const onClickButton = () => {
+                console.log('button click!');
+            };
+
+            const btn = document.querySelector('button');
+            btn.addEventListener('click', onClickButton);
+        */
+
+        /*
+            onClickButton 같은 함수를 callback function이라 한다. callback function이 동작이
+            실행되고 난 뒤에 추가로 실행되는 것을 말한다. 
+        */
+    </script>
+</body>
+</html>

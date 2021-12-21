@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div><span id="order">1</span>번째 참가자</div>
+    <div>제시어 : <span id="word"></span></div>
+    <input type="text">
+    <button class="target">입력</button>
+    <button class="btn">버튼1</button>
+    <button class="btn">버튼2</button>
+    <script>
+        /*
+            HTML tag를 가져오는 것은 chose라고 표현한다. js에서 html tag를 불러오는 함수는
+            document.querySelector('선택자'); 이다.
+        */
+        const _input = document.querySelector('input');
+        console.log(_input);
+
+        const _button = document.querySelector('button');
+        console.log(_button);
+
+        /*
+            태그가 여러개인 경우에 이때 사용하는 함수는 document.querySelectorAll('선택자');를
+            사용하면 된다.
+        */
+
+        const _btns = document.querySelectorAll('button');
+        console.log(_btns);
+
+        /*
+            id 값은 고유해야 하기 때문에 특히 js사용때 유용하다.
+        */
+
+        document.querySelector('#word');
+
+        /*
+            class naming으로 선택자를 전체 선택하고 싶을때
+        */
+
+        document.querySelectorAll('button.btn');
+
+        document.querySelector('.target');
+
+        /*
+            js로 선택자안에 자식만을 원할때
+        */
+
+        const _span = document.querySelector('div>span');
+        const _span = document.querySelector('div span');
+        console.log(_span);
+
+        /*
+            선택자 여러 개 동시에 적을 수 있으나, 다른 예로 선택자 안에 내부 선택자 등등을 
+            사용 할 수 있다. 그러나 쉽게 선택자에게 아이디 값 또는 클래스 네이밍을 주어서 쉽게
+            선택 할 수 있게 해주는게 좋다.
+        */
+
+        document.querySelector('선택자 내부선택자 내부선택자..');
+
+        // event lisener
+
+    </script>
+</body>
+</html>
