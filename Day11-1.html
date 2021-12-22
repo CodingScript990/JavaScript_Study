@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <span id="order">1</span>번째 참가자
+    </div>
+    <div>제시어 : <span id="word"></span></div>
+    <input type="text">
+    <button>입력</button>
+    <script>
+        const number = parseInt(prompt('몇 명이 참가 하나요?'), 10);
+        //const yesOrNo = confirm('맞나요?');
+        const _button = document.querySelector('button');
+        const _input = document.querySelector('input');
+        const _word = document.querySelector('#word');
+        const _order = document.querySelector('#order'); 
+
+        let word; // 제시어
+        let newWord; // 새로 입력한 단어
+
+        const onClickButton = () => {
+            if(!word || word[word.length - 1] === newWord[0]) { // 제시어가 비어있나? 단어가 올바른가?
+                // 비었다.
+                word = newWord;
+                _word.textContent = word;
+                const order = parseInt(_order.textContent); // order(형변환) 현재순서
+
+                if(order + 1 > number) { // 현재 순서에 1을 더한 값이 number보 크면
+                    _order.textContent = 1; // 자동으로 형변환 되어서 spring으로 간다.
+                } else { // 크지 않으면!
+                    _order.textContent = order + 1;
+                }
+            } else {
+                // 올바르지 않는가?
+                alert('올바르지 않는 단어입니다.');
+            }
+            _input.value = '';
+            _input.focus();
+        };
+
+        const onInput = (e) => {
+            newWord = e.target.value;
+        };
+
+        _button.addEventListener('click', onClickButton);
+        _input.addEventListener('input', onInput);
+
+        /*
+            [OR 관계 || ]
+            | 첫 번째 | 두 번째 | 최종 결과 |
+                true     true     true
+                true     false    true
+                false    true     true
+                false    false    fasle
+
+            [AND 관계 && ]
+            | 첫 번째 | 두 번째 | 최종 결과 |
+                true     true     true
+                true     false    false
+                false    true     false
+                false    false    fasle
+        */
+
+        /*
+            1. 순서도 이해하고 짜보기
+            (프로그램 절차, 개수 등등)
+            (각 절차별로 같은 내용이어야 한다.[흐름])
+            (모든 가능성을 열어두고 할 것)
+            (예시는 절차를 검증할 때 사용)
+
+            2. HTML 태그 선택하기
+            (prompt, alert, confirm)
+
+            3. tag 선택자
+            (document.querySelector('선택자'))
+
+            4. tag envetlistener
+            (tag.addEventListener('event name', listener function);)
+        */
+
+    </script>
+</body>
+</html>

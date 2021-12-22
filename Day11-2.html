@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 쿵쿵따 게임 -->
+    <div>
+        <span id="order">1</span>번째 참가자
+    </div>
+    <div>제시어 : <span id="word"></span></div>
+    <input type="text">
+    <button>입력</button>
+    <script>
+        const client = parseInt(prompt('몇 명이 참가 하나요?'), 10);
+        //const yesOrNo = confirm('맞나요?');
+
+        if(client) { // cancel btn click 하면 실행안되게
+            const _button = document.querySelector('button');
+            const _input = document.querySelector('input');
+            const _word = document.querySelector('#word');
+            const _order = document.querySelector('#order'); 
+
+            let word; // 제시어
+            let newWord; // 새로 입력한 단어
+
+            const onClickButton = () => {
+                if(!word || (word[word.length - 1] === newWord[0] && newWord.length === 3)) {
+                    // 제시어가 비었는가 입력한 단어가 올바르고 세 글자인가?
+                    word = newWord;
+                    _word.textContent = word;
+
+                    const order = parseInt(_order.textContent);
+
+                    if(order + 1 > client) { 
+                        _order.textContent = 1; 
+                    } else { 
+                        _order.textContent = order + 1;
+                    }
+                } else {
+                    alert('올바르지 않는 단어입니다.');
+                }
+                _input.value = '';
+                _input.focus();
+            };
+
+            const onInput = (e) => {
+                newWord = e.target.value;
+            };
+
+            _button.addEventListener('click', onClickButton);
+            _input.addEventListener('input', onInput);
+        }
+
+        
+    </script>
+</body>
+</html>
