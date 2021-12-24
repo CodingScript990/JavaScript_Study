@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숫자야구 게임</title>
+
+</head>
+<body>
+    <form id="frm">
+        <input type="text" name="" id="input">
+        <button>확인</button>
+    </form>
+    <div id="logs"></div>
+    <script>
+        const _ipnut = document.querySelector('#input');
+        const _frm = document.querySelector('#frm');
+        const _logs = document.querySelector('#logs');
+
+        const _numbers = []; // 0 ~9
+
+        for(let i = 0; i < 9; i+=1) {
+            _numbers.push(i + 1);
+        };
+        
+        const answer = []; // 4
+
+        for(let i = 0; i < 4; i+=1) { // 4번 반복
+            const index = Math.floor(Math.random() * _numbers.length - i); // 0 ~ 8;(항상 4개만 뽑을 수 있게 만들어준다.)
+            answer.push(_numbers[index]); // 넣어준다
+            _numbers.splice(index, 1); // 1개를 빼준다
+        };
+
+        // numbers = [1,2,3,4,5,6,7,8,9]
+        // answer = [3,6,7,8];
+
+        console.log('answer : ' + answer); // call
+
+        const tries = [];
+
+        const checkInput = input => {// 검사하는 코드
+            if(input.length !== 4) { // 길이가 4가 아니라면?
+                return alert('4자리 숫자를 입력해 주세요.');
+            }
+
+            if(new Set(input).size !== 4) { // 중복된 숫자가 있는가? Set함수().size => 중복이 없는 개념
+                return alert('중복되지 않게 입력해 주세요.');
+            }
+
+            if(tries.includes(input)) { // 이미 시도한 겂은 아닌가?
+                return alert('이미 시도한 값입니다.');
+            }
+            return true;
+        }; 
+
+        _frm.addEventListener('submit', (e) => {
+            e.preventDefault(); // 기본 동작 막기
+            const value = _ipnut.value; // input value
+            _ipnut.value = ''; // 빈값으로 세팅해준다.
+
+            if(!checkInput(value)) { // error
+                return;
+            }
+
+            // 입력값 문제 없음(true)
+            if(answer.join('') === value) { // join function : Array => string
+                _logs.textContent = '홈런!'; // text
+                return;
+            }
+
+            // 10번의 시도중 맞추지 못하면?(false)
+            if(tries.length >= 9) {
+                const msg = document.createTextNode(`패배! 정답은 ${answer.join('')}`); // fails msg
+                _logs.appendChild(msg); // msg
+                return;
+            }
+
+            // 몇 스트라이크 몇 볼인지 검사
+            let strike = 0; // value
+            let ball = 0; // value
+
+            // answer : random value(4), value : user value(4);
+            for(let i = 0; i < answer.length; i++) {
+                const idx = value.indexOf(answer[i]); // random value === user value [유저가 몇개나 맞추었는지 비교!]
+
+                if(idx > -1) { // 일치하는 숫자 발견하면?
+                    if(idx === i) { // 자릿수도 같으면?
+                        strike += 1; // strike + 1
+                    } else { // 숫자만 같으면? 
+                        ball += 1; // ball + 1
+                    }
+                }
+            }
+            _logs.append(`${value} : ${strike} 스트라이크 ${ball} 볼`, document.createElement('br')); // string call
+            tries.push(value); // call
+        });
+        /*
+            join : 값들 사이에 ',', '/', ':'...등을 넣어 주는 역할
+            split() : 값들을 하나씩 나누어 주는 역할 / 기준을 잡았다면 기준을 제외한 나머지 값들을 출력해준다
+            --------------------------------------------------------------------------------------------
+            indexOf : Array Or String에 웒나는 값이 들어있는지 찾는 Method.
+            includes : 조금 더 직관적으로 true/false를 반환해줍니다.
+            --------------------------------------------------------------------------------------------
+            document.createElemetn, document.createTextNode : 각각 Tag와 Text를 만드는 Method. 다른 Tag에 
+            append, appendChild하기 전까지는 화면에 보이지 않는다.
+            --------------------------------------------------------------------------------------------
+            appendChild : 하나만 넣을 수 있다.
+            append : 여러 개를 동시에 넣을 수 있다. / Text add할 경우 document.createTextNod대신 String을
+            바로 넣어도 된다.
+        */
+    </script>
+</body>
+</html>
