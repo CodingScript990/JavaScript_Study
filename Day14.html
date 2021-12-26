@@ -32,9 +32,6 @@
             _numbers.splice(index, 1); // 1개를 빼준다
         };
 
-        // numbers = [1,2,3,4,5,6,7,8,9]
-        // answer = [3,6,7,8];
-
         console.log('answer : ' + answer); // call
 
         const tries = [];
@@ -52,7 +49,14 @@
                 return alert('이미 시도한 값입니다.');
             }
             return true;
-        }; 
+        };  // 검사하는 코드
+
+        let defeated = () => {
+            const outMsg = document.createTextNode(`패배! 정답은 ${answer.join('')}`); // String, join()
+            _logs.appendChild(outMsg);
+        };
+
+        let out = 0; // out count value
 
         _frm.addEventListener('submit', (e) => {
             e.preventDefault(); // 기본 동작 막기
@@ -92,23 +96,25 @@
                     }
                 }
             }
+
+            // out count comparison / 아웃카운트 비교 
+
+            if(strike === 0 && ball === 0) {// strick, ball === 0;
+                out++; // out value increase + 1;
+                _logs.append(`${value} out!`, document.createElement('br')); // <br/>
+            } else {
+                _logs.append(`${value}:${strike} 스트라이크 ${ball} 볼`, document.createElement('br')); // String, <br/>
+            }
+
+            if(out === 3) { // out value 3 === 3
+                defeated();
+                return;
+            }
+
             _logs.append(`${value} : ${strike} 스트라이크 ${ball} 볼`, document.createElement('br')); // string call
             tries.push(value); // call
         });
-        /*
-            join : 값들 사이에 ',', '/', ':'...등을 넣어 주는 역할
-            split() : 값들을 하나씩 나누어 주는 역할 / 기준을 잡았다면 기준을 제외한 나머지 값들을 출력해준다
-            --------------------------------------------------------------------------------------------
-            indexOf : Array Or String에 웒나는 값이 들어있는지 찾는 Method.
-            includes : 조금 더 직관적으로 true/false를 반환해줍니다.
-            --------------------------------------------------------------------------------------------
-            document.createElement, document.createTextNode : 각각 Tag와 Text를 만드는 Method. 다른 Tag에 
-            append, appendChild하기 전까지는 화면에 보이지 않는다.
-            --------------------------------------------------------------------------------------------
-            appendChild : 하나만 넣을 수 있다.
-            append : 여러 개를 동시에 넣을 수 있다. / Text add할 경우 document.createTextNod대신 String을
-            바로 넣어도 된다.
-        */
+        
     </script>
 </body>
 </html>
